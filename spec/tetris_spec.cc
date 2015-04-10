@@ -1,13 +1,15 @@
 #include "gtest/gtest.h"
+#include "../src/tetris.h"
 
-TEST(TetrisSpec, Fails) {
-  EXPECT_EQ(1, 2);
+#include <iostream>
+using namespace std;
+
+TEST(TetrisSpec, BuildsTetrisGameAsParametersValue) {
+
+  Tetris tetris(5, 5);
+  int width = tetris.get_width();
+  int height = tetris.get_height();
+
+  EXPECT_EQ(width, 5);
+  EXPECT_EQ(height, 5);
 }
-
-// int main(int argc, char **argv) {
-//   ::testing::InitGoogleTest(&argc, argv);
-//   return RUN_ALL_TESTS();
-// }
-
-// compile using de following command
-// g++ -I ../gtest-1.7.0/include/ -L ../gtest-1.7.0/lib -lgtest -o tetris tetris_spec.cc

@@ -1,0 +1,105 @@
+04/2015 - Bruno Rolim - github.com/brolim
+
+
+===============================================================
+    UMA DAS MELHORES TABELAS QUE EXPLICA CLASSES E PONTEIRO
+    fonte: http://www.cplusplus.com/doc/tutorial/classes/
+===============================================================
+
+  *x      pointed to by x
+  &x      address of x
+  x.y     member y of object x
+  x->y    member y of object pointed to by x
+  (*x).y  member y of object pointed to by x (equivalent to the previous one)
+  x[0]    first object pointed to by x
+  x[1]    second object pointed to by x
+  x[n]    (n+1)th object pointed to by x
+
+
+
+
+
+========================================================
+    COMO INSTALAR E USAR O GOOGLE TEST USANDO O MAKE
+    (Ubuntu 14.04)
+    
+    04/2015 - Bruno Rolim - github.com/brolim
+========================================================
+
+
+  (A) --- FAZER A PASTA DO PROJETO ---
+    ~$ mkdir projeto
+    ~$ cd projeto
+    ~/projeto$ 
+
+
+
+  (B) --- PEGAR CÓDIGO FONTE DO GOOGLE TEST ---
+    Baixar o .zip com o código do GTEST: https://code.google.com/p/googletest/downloads/detail?name=gtest-1.7.0.zip&can=2&q=
+    Extrair o o GTEST para a pasta '~/projetos'
+
+
+
+  (C) --- GERAR OS ARQUIVOS DA LIB GTEST ---
+    ~/projeto$ cd gtest-1.7.0
+    ~/projeto/gtest-1.7.0$ ./configure
+    ~/projeto/gtest-1.7.0$ make
+
+
+    
+  (D) --- FAZER UM GATO PRA FAZER FUNCIONAR A INCLUSÃO DA LIB ---
+    Disclaimer: deve ter um jeito bem mais elegante de fazer isso
+    ~/projeto/gtest-1.7.0$ cd lib
+    ~/projeto/gtest-1.7.0/lib$ cp .libs/libgtest*so* .
+
+
+
+  (E) --- GERAR A ESTRUTURA DE DIRETÓRIO DO CÓDIGO E DO TESTE ---
+    ~/projeto/gtest-1.7.0/lib$ cd ..
+    ~/projeto$ mkdir src
+    ~/projeto$ touch src/projeto.cc
+    ~/projeto$ touch src/projeto.h
+    ~/projeto$ mkdir scpec
+    ~/projeto$ touch spec/projeto_spec.cc
+
+
+
+  (F) --- CONTEÚDO DOS ARQUIVOS --- 
+    
+    >> projeto.h
+
+      #ifndef PROJETO_H_
+      #define PROJETO_H_
+      #endif
+
+
+
+    >> projeto.cc
+
+      #include "projeto.h"
+
+
+
+    >>> projeto_spec.cc
+
+      #include "gtest/gtest.h"
+
+      TEST(ProjetoSpec, Fails) {
+        EXPECT_EQ(1, 2);
+      }
+
+
+
+  (G) --- PATH DE LIBS RECEBE O CAMINHO DA LIB GTEST ---
+    ~/projeto$ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/projetos/c++/tetris/gtest-1.7.0/lib
+    ~/projeto$ export LD_LIBRARY_PATH
+
+
+
+  (H) --- RODAR OS TESTES ---
+    ~/projeto$ cd spec
+    ~/projeto/spec$ g++ -I ../gtest-1.7.0/include/ -L ../gtest-1.7.0/lib -Wall -g -pthread projeto_spec.cc -lgtest_main -lgtest -lpthread -o projeto_spec
+
+
+
+
