@@ -2,7 +2,7 @@
 
 int main(int argc, char const *argv[]) {
   
-  Tetris tetris(20,20);
+  Tetris tetris;
   tetris.start_game();
 
   return 0;

@@ -5,31 +5,26 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <curses.h>
 
 using namespace std;
 
-Tetris::Tetris (int w, int h) {
-  width = w;
-  height = h;
-  step = 0;
 
+int Tetris::start_game () {
+  
   // [start of] Curses Initialisations
   initscr();
   keypad(stdscr, TRUE);
   noecho();
   // [end of] Curses Initialisations
-  
+
+  show_board();
+  get_user_input(1000);
+  return 0;
 }
 
-int Tetris::get_width () {
-  return width;
-}
-
-int Tetris::get_height () {
-  return height;
-}
 
 int Tetris::get_user_input (int timeout){
   
@@ -61,9 +56,24 @@ int Tetris::get_user_input (int timeout){
 
 }
 
+
+int Tetris::end_game () {
+  
+  // [start of] Curses Finalizations
+  refresh();
+  endwin();
+  // [end of] Curses Finalizations
+
+  exit(0);
+  return 0;
+}
+
+
+Tetris::Tetris () {
+}
+
 int Tetris::step_forward () {
-  step = step + 1;
-  show_board(step);
+  show_board();
   return 0;
 }
 
@@ -72,14 +82,16 @@ int Tetris::move_block (int pressed_key) {
   switch(pressed_key) {
     
     case KEY_LEFT:  
-      step = step - 1;
-      show_board(step);
+      printw("left");
       break;
 
     case KEY_RIGHT:  
-      step = step + 1;
-      show_board(step);
+      printw("right");
       break;
+
+    case 'q':  
+      end_game();
+      
 
   }
 
@@ -87,58 +99,20 @@ int Tetris::move_block (int pressed_key) {
   return 0;
 }
 
-int Tetris::start_game () {
 
 
-  
-
-  
-
-  get_user_input(1000);
-
-
-  // tm* millis_before_getch = current_time_in_milliseconds();
-  // int pressed_key = getch();
-  // tm* millis_after_getch = current_time_in_milliseconds();
-
-  // printf("%s\n", millis_after_getch);
-
-  // while(pressed_key != 'q') {
-
-
-  //   switch(pressed_key) {
-  //     case KEY_LEFT:  printw("\nLeft Arrow");
-  //     break;
-
-  //     case KEY_RIGHT: printw("\nRight Arrow");
-  //     break;
-  //   }
-  // }
-
-  printw("\n\nTchau ;-)\n");
-
-  refresh();
-  getch();
-  endwin();
-  
-  return 0;
-}
-
-int Tetris::show_board (int x) {
+int Tetris::show_board () {
 
   clear();
   printw("TETRIS - aperte 'q' para sair\n");
 
-  for (int i=0; i<height; ++i) {
+  for (int i=0; i<20; ++i) {
     printw("\n");
-    for (int j=0; j<width; ++j) {
-      if (j==x){
-        printw("#");
-      } else {
-        printw(".");
-      }
+    for (int j=0; j<20; ++j) {
+      printw(".");
     }
   }
+
   printw("\n");
 
   return 0;

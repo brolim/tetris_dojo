@@ -5,18 +5,16 @@
 
 class Tetris {
 
-  int width, height, step;
-  bool game_started;
+  int get_user_input (int timeout);
+  int end_game();
+
+  int step_forward();
+  int move_block(int pressed_key);
 
   public: 
-    Tetris (int width, int height);
-    int get_width();
-    int get_height();
-    int show_board(int);
+    Tetris ();
+    int show_board();
     int start_game();
-    int step_forward();
-    int move_block(int pressed_key);
-    int get_user_input (int timeout);
 };
 
 #endif  // TETRIS_H_
