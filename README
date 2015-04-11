@@ -66,7 +66,7 @@
 
   (F) --- CONTEÚDO DOS ARQUIVOS --- 
     
-    >> projeto.h
+    [projeto.h] aqui virá a interface do código
 
       #ifndef PROJETO_H_
       #define PROJETO_H_
@@ -74,13 +74,13 @@
 
 
 
-    >> projeto.cc
+    [projeto.cc] aqui virá o código itself
 
       #include "projeto.h"
 
 
 
-    >>> projeto_spec.cc
+    [projeto_spec.cc]
 
       #include "gtest/gtest.h"
 
@@ -96,7 +96,7 @@
 
 
 
-  (H) --- RODAR OS TESTES ---
+  (H) --- RODAR O TESTE QUE FALHA ---
     ~/projeto$ cd spec
     ~/projeto/spec$ g++ -I ../gtest-1.7.0/include/ -L ../gtest-1.7.0/lib -Wall -g -pthread projeto_spec.cc -lgtest_main -lgtest -lpthread -o projeto_spec
 
